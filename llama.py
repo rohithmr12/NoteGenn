@@ -1,8 +1,7 @@
-# llama_model.py
-from langchain.llms import CTransformers
 from langchain.prompts import PromptTemplate
+from langchain.llms import CTransformers
 
-def get_llama_response(input_text, no_words):
+def generate_llama_response(input_text, no_words):
     llm = CTransformers(model='llama-2-7b-chat.ggmlv3.q8_0.bin',
                         model_type='llama',
                         config={'max_new_tokens': 256, 'temperature': 0.5})
@@ -14,4 +13,8 @@ def get_llama_response(input_text, no_words):
     prompt = PromptTemplate(input_variables=["input_text"],
                             template=template)
 
-    return llm(prompt.format(input_text=input_text, no_words=no_words))
+    # Generate the response from the LLama 2 model
+    response = llm(prompt.format(input_text=input_text, no_words=no_words))
+    
+    return response
+
